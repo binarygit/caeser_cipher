@@ -1,9 +1,8 @@
 #!/usr/bin/ruby
-require 'pry-byebug'
 
 class CaeserCipher
   def encode(message, shift)
-    message.split('').map do |character|
+   message.split('').map do |character|
       if alphabet?(character)
         encoded_character = shifted_ascii_value(ascii_value(character), shift).chr
         encoded_character.capitalize! if capital?(character)
@@ -14,6 +13,8 @@ class CaeserCipher
     end
            .join
   end
+
+  private
 
   def shifted_ascii_value(ascii_value, shift = 0)
     potential_ascii_value = ascii_value + shift
@@ -38,3 +39,17 @@ class CaeserCipher
     character.match?(/^[A-Z]+$/i)
   end
 end
+
+def run
+  puts "\nHello and welcome to caeser cipher\n"
+  print "please enter your message: "
+  message = gets.chomp
+  print "\nWhat shift value do you require? "
+  shift = gets.chomp.to_i
+
+  print "\nHere is your cipher: "
+  print CaeserCipher.new.encode(message, shift)
+  print "\n "
+end
+
+run
